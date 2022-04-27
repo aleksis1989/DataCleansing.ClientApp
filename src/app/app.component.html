@@ -1,0 +1,54 @@
+<mat-card class="d-flex justify-content-center" style="background-color: #3f51b5;">
+  <h1 style="color: white;">Data Cleansing</h1>
+</mat-card>
+
+<mat-card class="d-flex justify-content-center">
+  <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+  <div class="file-upload">
+
+    {{fileName || "No file uploaded yet."}}
+
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+  </div>
+</mat-card>
+
+<mat-card class="d-flex justify-content-center">
+  <input type="button" (click)="downloadFile()" value="Download">
+</mat-card>
+
+<mat-card *ngIf="columnStatList" style="padding: 5%;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Column Name
+        </th>
+        <th>
+          String
+        </th>
+        <th>
+          Integer
+        </th>
+        <th>
+          Decimal
+        </th>
+        <th>
+          Date
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of columnStatList">
+        <td> {{item?.columnName}} </td>
+        <td> {{item?.stringPercentage}} % </td>
+        <td> {{item?.integerPercentage}} % </td>
+        <td> {{item?.decimalPercentage}} % </td>
+        <td> {{item?.datePercentage}} % </td>
+      </tr>
+    </tbody>
+
+  </table>
+</mat-card>
