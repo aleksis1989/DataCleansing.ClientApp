@@ -33,14 +33,14 @@ export class DataService {
         }));
   }
 
-  upload(formData: FormData): Observable<any> {
-    return this.http.post(this.baseUrl + 'Upload', formData).pipe(tap(data => {
+  upload(url: string, formData: FormData): Observable<any> {
+    return this.http.post(this.baseUrl + url, formData).pipe(tap(data => {
       return data;
     }));
   }
 
-  downloadFile() {
-    this.ajaxPostBlob(this.baseUrl + 'download', {})
+  downloadFile(url: string, fileName: string) {
+    this.ajaxPostBlob(this.baseUrl + url, { fileName })
       .subscribe(response => {
         this.saveFile(response.body, "fileName.xlsx");
       }, (error: any) => {

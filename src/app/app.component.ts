@@ -34,11 +34,11 @@ export class AppComponent implements OnInit {
       const formData = new FormData();
       formData.append("filePath", file);
 
-      this.dataService.upload(formData).subscribe(() => { });
+      this.dataService.upload('Cleansing/Upload', formData).subscribe(() => { });
     }
   }
 
-  downloadFile() {
-    this.dataService.downloadFile();
+  downloadFile(fileName: string) {
+    this.dataService.downloadFile('Cleansing/download', fileName);
   }
 }
