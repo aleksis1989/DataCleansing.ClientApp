@@ -9,17 +9,74 @@
 
     {{fileName || "No file uploaded yet."}}
 
-    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+    <button mat-mini-fab color="primary" matTooltip="Upload File" class="upload-btn" *ngIf="!isFileUploaded"
+      (click)="fileUpload.click()" value="Attach file">
       <mat-icon>attach_file</mat-icon>
     </button>
   </div>
 </mat-card>
-
-<mat-card class="d-flex justify-content-center">
-  <input type="button" (click)="downloadFile('SampleData.xlsx')" value="Download">
+<mat-card style="padding: 2%;" *ngIf="isFileProcessed && cleansingMethods">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Operation Type
+        </th>
+        <th>
+          Include for cleansing
+        </th>
+        <th>
+          Date Format
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cleansingMethods">
+        <td> {{item?.operationTypeName}} </td>
+        <td>
+          <mat-checkbox class="example-margin" [(ngModel)]="item.isForCleansing">Checked</mat-checkbox>
+        </td>
+        <td>
+          <mat-form-field appearance="fill" *ngIf="item.operationTypeId === 3 && item.isForCleansing">
+            <mat-label>Select date format</mat-label>
+            <mat-select [(ngModel)]="item.selectedDateFormat" required>
+              <mat-option *ngFor="let dateFormat of item.dateFormats" [value]="dateFormat">
+                {{dateFormat}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </mat-card>
-
-<mat-card *ngIf="columnStatList" style="padding: 5%;">
+<mat-card class="d-flex justify-content-center">
+  <div style="padding-left: 10px" *ngIf="cleanedFileName">
+    <button mat-mini-fab color="primary" matTooltip="Download File" class="upload-btn" (click)="reloadPage()"
+      value="Reload">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+  <div style="padding-left: 10px">
+    <button mat-mini-fab color="primary" matTooltip="Process File" class="upload-btn"
+      *ngIf="isFileUploaded && !isFileProcessed" value="Process" (click)="processFile()">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="isFileProcessed">
+    <button mat-mini-fab color="primary" matTooltip="Clean File" class="upload-btn" (click)="cleanFile()"
+      value="Clean File">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+  <div style="padding-left: 10px" *ngIf="cleanedFileName">
+    <button mat-mini-fab color="primary" matTooltip="Download File" class="upload-btn" (click)="downloadFile()"
+      value="Download File">
+      <mat-icon>get_app</mat-icon>
+    </button>
+  </div>
+</mat-card>
+<mat-card *ngIf="isFileProcessed && columnStatList && isFileUploaded" style="padding: 2%;">
   <table class="table">
     <thead>
       <tr>
@@ -49,6 +106,5 @@
         <td> {{item?.datePercentage}} % </td>
       </tr>
     </tbody>
-
   </table>
 </mat-card>

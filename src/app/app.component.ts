@@ -12,16 +12,37 @@ export class AppComponent implements OnInit {
   title = 'DataCleansing';
   fileName: string = '';
   columnStatList: any = [];
-
+  isFileUploaded: boolean | undefined;
+  cleanedFileName: string = '';
+  cleansingMethods: any;
+  isFileProcessed: boolean | undefined;
 
   constructor(
     private dataService: DataService,
     private cleansingService: CleansingService) { }
 
   ngOnInit(): void {
+    this.cleansingService.getCleansingMethods().subscribe(response => {
+      this.cleansingMethods = response;
+    });
+  }
+
+  printSelectedOperations() {
+    console.log(this.cleansingMethods);
+  }
+
+  processFile() {
     this.cleansingService.getDocumentColumnStatistic("DataSample.xlsx")
       .subscribe(response => {
         this.columnStatList = response;
+        this.isFileProcessed = true;
+      });
+  }
+
+  cleanFile() {
+    this.cleansingService.cleanFile(this.cleansingMethods, this.fileName)
+      .subscribe(response => {
+        this.cleanedFileName = response.fileName;
       });
   }
 
@@ -34,11 +55,19 @@ export class AppComponent implements OnInit {
       const formData = new FormData();
       formData.append("filePath", file);
 
-      this.dataService.upload('Cleansing/Upload', formData).subscribe(() => { });
+      this.dataService.upload('Cleansing/Upload', formData).subscribe(() => {
+        this.isFileUploaded = true;
+      });
     }
   }
 
-  downloadFile(fileName: string) {
-    this.dataService.downloadFile('Cleansing/download', fileName);
+  downloadFile() {
+    var cleanedFileName = this.cleanedFileName;
+    debugger;
+    this.dataService.downloadFile('Cleansing/download', cleanedFileName);
+  }
+
+  reloadPage() {
+    location.reload();
   }
 }

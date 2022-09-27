@@ -25,8 +25,7 @@ export class DataService {
   }
 
   ajaxPostBlob(url: string, dataForSend: any): Observable<any> {
-    return this.http.post(url,
-      {}, { observe: 'response', responseType: 'blob', headers: { 'FROM-ANGULAR': '1' } })
+    return this.http.post(url, dataForSend, { observe: 'response', responseType: 'blob', headers: { 'FROM-ANGULAR': '1' } })
       .pipe(
         tap(data => {
           return data;
@@ -42,7 +41,7 @@ export class DataService {
   downloadFile(url: string, fileName: string) {
     this.ajaxPostBlob(this.baseUrl + url, { fileName })
       .subscribe(response => {
-        this.saveFile(response.body, "fileName.xlsx");
+        this.saveFile(response.body, fileName + ".xlsx");
       }, (error: any) => {
       });
   }
