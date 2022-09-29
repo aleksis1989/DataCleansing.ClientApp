@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   }
 
   processFile() {
-    this.cleansingService.getDocumentColumnStatistic("DataSample.xlsx")
+    this.cleansingService.getDocumentColumnStatistic(this.fileName)
       .subscribe(response => {
         this.columnStatList = response;
         this.isFileProcessed = true;
@@ -63,7 +63,6 @@ export class AppComponent implements OnInit {
 
   downloadFile() {
     var cleanedFileName = this.cleanedFileName;
-    debugger;
     this.dataService.downloadFile('Cleansing/download', cleanedFileName);
   }
 

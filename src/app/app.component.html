@@ -6,9 +6,7 @@
   <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
   <div class="file-upload">
-
     {{fileName || "No file uploaded yet."}}
-
     <button mat-mini-fab color="primary" matTooltip="Upload File" class="upload-btn" *ngIf="!isFileUploaded"
       (click)="fileUpload.click()" value="Attach file">
       <mat-icon>attach_file</mat-icon>
@@ -51,8 +49,8 @@
   </table>
 </mat-card>
 <mat-card class="d-flex justify-content-center">
-  <div style="padding-left: 10px" *ngIf="cleanedFileName">
-    <button mat-mini-fab color="primary" matTooltip="Download File" class="upload-btn" (click)="reloadPage()"
+  <div style="padding-left: 10px" *ngIf="fileName">
+    <button mat-mini-fab color="primary" matTooltip="Reload" class="upload-btn" (click)="reloadPage()"
       value="Reload">
       <mat-icon>refresh</mat-icon>
     </button>
