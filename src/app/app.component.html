@@ -49,8 +49,8 @@
   </table>
 </mat-card>
 <mat-card class="d-flex justify-content-center">
-  <div style="padding-left: 10px" *ngIf="fileName">
-    <button mat-mini-fab color="primary" matTooltip="Reload" class="upload-btn" (click)="reloadPage()"
+  <div style="padding-left: 10px" *ngIf="cleanedFileName">
+    <button mat-mini-fab color="primary" matTooltip="Upload new File" class="upload-btn" (click)="reloadPage()"
       value="Reload">
       <mat-icon>refresh</mat-icon>
     </button>
