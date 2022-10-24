@@ -12,14 +12,37 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
+import { NamesForCleansingListComponent } from './components/names-for-cleansing-list/names-for-cleansing-list.component';
+import { RouterModule, Routes } from '@angular/router';
+import { BlockUIModule } from 'ng-block-ui';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { ExcelDataCleansingComponent } from './components/excel-data-cleansing/excel-data-cleansing.component';
+
+const appRoutes: Routes = [
+
+  { path: 'home', component: ExcelDataCleansingComponent, pathMatch: 'full' },
+  {
+    path: 'first-names-cleansing',
+    component:NamesForCleansingListComponent,
+    pathMatch: 'full'
+  },
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NamesForCleansingListComponent,
+    ExcelDataCleansingComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
+    BlockUIModule.forRoot({
+      delayStart: 300,
+      delayStop: 0
+    }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -28,7 +51,10 @@ import { FormsModule } from '@angular/forms';
     MatCheckboxModule,
     MatTooltipModule,
     MatSelectModule,
+    MatListModule,
+    MatToolbarModule,
     HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

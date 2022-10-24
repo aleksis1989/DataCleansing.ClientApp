@@ -1,108 +1,35 @@
-<mat-card class="d-flex justify-content-center" style="background-color: #3f51b5;">
-  <h1 style="color: white;">Data Cleansing</h1>
-</mat-card>
+<!-- Toolbar -->
+<mat-toolbar color="primary" class="mat-elevation-z4" style="background-color: #2a3f54">
+  <div class="brand"></div>
+  <span class="app-spacer"></span>
+  <span flex></span>
+  Data Cleansing
+</mat-toolbar>
 
-<mat-card class="d-flex justify-content-center">
-  <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
-  <div class="file-upload">
-    {{fileName || "No file uploaded yet."}}
-    <button mat-mini-fab color="primary" matTooltip="Upload File" class="upload-btn" *ngIf="!isFileUploaded"
-      (click)="fileUpload.click()" value="Attach file">
-      <mat-icon>attach_file</mat-icon>
-    </button>
+<!-- Flexed div to contain the nav and content -->
+<div class="mainWrapper">
+
+  <!-- Nav list -->
+  <mat-nav-list>
+    <mat-list-item routerLinkActive="active-link">
+      <button mat-icon-button color="primary" routerLink="/home">
+        <mat-icon aria-label="Прочистување на ексел" matTooltip="Прочистување на ексел" matTooltipPosition="right">data_usage</mat-icon>
+      </button>
+    </mat-list-item>
+
+    <mat-list-item routerLinkActive="active-link">
+      <button mat-icon-button color="primary" routerLink="/first-names-cleansing">
+        <mat-icon aria-label="Прочистување на имиа" matTooltip="Прочистување на имиња" matTooltipPosition="right">build</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-nav-list>
+
+  <!-- Page content -->
+  <div class="container-fluid">
+    <block-ui>
+      <router-outlet></router-outlet>
+    </block-ui>
   </div>
-</mat-card>
-<mat-card style="padding: 2%;" *ngIf="isFileProcessed && cleansingMethods">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>
-          Operation Type
-        </th>
-        <th>
-          Include for cleansing
-        </th>
-        <th>
-          Date Format
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cleansingMethods">
-        <td> {{item?.operationTypeName}} </td>
-        <td>
-          <mat-checkbox class="example-margin" [(ngModel)]="item.isForCleansing">Checked</mat-checkbox>
-        </td>
-        <td>
-          <mat-form-field appearance="fill" *ngIf="item.operationTypeId === 3 && item.isForCleansing">
-            <mat-label>Select date format</mat-label>
-            <mat-select [(ngModel)]="item.selectedDateFormat" required>
-              <mat-option *ngFor="let dateFormat of item.dateFormats" [value]="dateFormat">
-                {{dateFormat}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</mat-card>
-<mat-card class="d-flex justify-content-center">
-  <div style="padding-left: 10px" *ngIf="cleanedFileName">
-    <button mat-mini-fab color="primary" matTooltip="Upload new File" class="upload-btn" (click)="reloadPage()"
-      value="Reload">
-      <mat-icon>refresh</mat-icon>
-    </button>
-  </div>
-  <div style="padding-left: 10px">
-    <button mat-mini-fab color="primary" matTooltip="Process File" class="upload-btn"
-      *ngIf="isFileUploaded && !isFileProcessed" value="Process" (click)="processFile()">
-      <mat-icon>settings</mat-icon>
-    </button>
-  </div>
-  <div *ngIf="isFileProcessed">
-    <button mat-mini-fab color="primary" matTooltip="Clean File" class="upload-btn" (click)="cleanFile()"
-      value="Clean File">
-      <mat-icon>settings</mat-icon>
-    </button>
-  </div>
-  <div style="padding-left: 10px" *ngIf="cleanedFileName">
-    <button mat-mini-fab color="primary" matTooltip="Download File" class="upload-btn" (click)="downloadFile()"
-      value="Download File">
-      <mat-icon>get_app</mat-icon>
-    </button>
-  </div>
-</mat-card>
-<mat-card *ngIf="isFileProcessed && columnStatList && isFileUploaded" style="padding: 2%;">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>
-          Column Name
-        </th>
-        <th>
-          String
-        </th>
-        <th>
-          Integer
-        </th>
-        <th>
-          Decimal
-        </th>
-        <th>
-          Date
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of columnStatList">
-        <td> {{item?.columnName}} </td>
-        <td> {{item?.stringPercentage}} % </td>
-        <td> {{item?.integerPercentage}} % </td>
-        <td> {{item?.decimalPercentage}} % </td>
-        <td> {{item?.datePercentage}} % </td>
-      </tr>
-    </tbody>
-  </table>
-</mat-card>
+
+</div>

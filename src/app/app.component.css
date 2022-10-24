@@ -1,3 +1,44 @@
 .file-input {
   display: none;
 }
+
+.mainWrapper{
+  z-index: 0;
+  padding-left: 74px;
+}
+
+.mainWrapper > .mat-nav-list{
+  background: #2a3f54;
+  background: linear-gradient(-90deg, #1e2c3b 0%, #274a60 100%);
+  background: -moz-linear-gradient(-90deg, #1e2c3b 0%, #274a60 100%);
+  background: -webkit-linear-gradient(-90deg, #1e2c3b 0%, #274a60 100%);
+  position: fixed;
+  left: 0;
+  top: 64px;
+  bottom: 0;
+  padding-top: 0 !important;
+}
+.mainWrapper > .mat-nav-list .mat-list-item{
+  height: 56px !important;
+  border-left: 3px solid transparent; 
+}
+
+.mainWrapper > .mat-nav-list .mat-list-item.active-link{
+  background-color: rgba(54, 147, 189, 0.3) !important;
+  border-left: 3px solid #0c8ec9;
+      transition: all .2s ease-in-out;
+}
+
+.mainWrapper > .mat-nav-list .mat-list-item:hover{
+  background: rgba(0,0,0,.3) !important;
+
+  transition: all .2s ease-in-out;
+}
+
+.mainWrapper > .mat-nav-list .mat-list-item.active-link .mat-icon-button.mat-primary{
+  color: white;
+}
+
+.mat-icon-button.mat-primary{
+  color: white;
+}
