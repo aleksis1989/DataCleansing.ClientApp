@@ -31,7 +31,7 @@ export class NamesForCleansingListComponent implements OnInit {
 
   @ViewChild('actionsTemplate', { static: true }) actionsTemplate: TemplateRef<any> | undefined;
   @ViewChild('headerTemplate', { static: true }) headerTemplate: TemplateRef<any> | undefined;
-  @ViewChild('similarityTypeName', { static: true }) similarityTypeName: TemplateRef<any> | undefined;
+  @ViewChild('similarityTypeNameColor', { static: true }) similarityTypeNameColor: TemplateRef<any> | undefined;
 
   constructor(
     private dialog: MatDialog,
@@ -87,7 +87,7 @@ export class NamesForCleansingListComponent implements OnInit {
         name: 'ИМЕ'
       },
       {
-        cellTemplate: this.similarityTypeName,
+        cellTemplate: this.similarityTypeNameColor,
         prop: 'similarityTypeName',
         name: 'ТИП НА СЛИЧНОСТ',
       },
@@ -141,6 +141,7 @@ export class NamesForCleansingListComponent implements OnInit {
   }
 
   similarityColor(similarityTypeId?: number) {
+    debugger;
     if (similarityTypeId) {
       switch (similarityTypeId) {
         case SimilarityType.Weak:

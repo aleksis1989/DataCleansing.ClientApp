@@ -19,8 +19,8 @@
           </mat-icon>
         </button>
       </ng-template>
-      <ng-template #similarityTypeName let-value="value" let-row="row">
-        <span [ngStyle]="{'color': similarityColor(row.similarityTypeId)}" style="font-weight: bold;"></span>
+      <ng-template #similarityTypeNameColor let-value="value" let-row="row">
+        <span [ngStyle]="{'color': similarityColor(row.similarityTypeId)}" style="font-weight: bold;">{{value}}</span>
       </ng-template>
     </div>
   </div>
