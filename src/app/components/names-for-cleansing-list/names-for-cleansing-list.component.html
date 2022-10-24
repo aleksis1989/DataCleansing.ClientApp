@@ -5,23 +5,23 @@
       <ngx-datatable class="material" [rows]="rows" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
         [footerHeight]="50" [messages]="messages" [rowHeight]="'auto'" [externalPaging]="true" [externalSorting]="true"
         [count]="searchModel.totalElements" [offset]="searchModel.pageNumber-1" [limit]="searchModel.size"
-        (page)="pageCallback($event)" (sort)="sortCallback($event)">
+        (page)="pageCallback($event)" (sort)="sortCallback($event)" tableClass="table table-striped table-bordered table-hover">
       </ngx-datatable>
-      <!-- <ng-template #headerTemplate let-column="column">
-        </ng-template>
-        <ng-template #actionsTemplate let-row="row" let-value="value">
-          <button mat-icon-button (click)="processFirstNameCleansing(value)" *ngIf="row.canProcess">
-            <mat-icon aria-label="Обработи" matTooltip="Обработи">settings
-            </mat-icon>
-          </button>
-          <button mat-icon-button (click)="undoMergeFirstName(value)" *ngIf="row.canReject">
-            <mat-icon aria-label="Поништи го прочистувањето" matTooltip="Поништи го прочистувањето">undo
-            </mat-icon>
-          </button>
-        </ng-template>
-        <ng-template #similarityTypeName let-value="value" let-row="row">
-          <span [ngStyle]="{'color': similarityColor(row.similarityTypeId)}" style="font-weight: bold;"></span>
-        </ng-template> -->
+      <ng-template #headerTemplate let-column="column">
+      </ng-template>
+      <ng-template #actionsTemplate let-row="row" let-value="value">
+        <button mat-icon-button (click)="processFirstNameCleansing(value)" *ngIf="row.canProcess">
+          <mat-icon aria-label="Обработи" matTooltip="Обработи">settings
+          </mat-icon>
+        </button>
+        <button mat-icon-button (click)="undoMergeFirstName(value)" *ngIf="row.canReject">
+          <mat-icon aria-label="Поништи го прочистувањето" matTooltip="Поништи го прочистувањето">undo
+          </mat-icon>
+        </button>
+      </ng-template>
+      <ng-template #similarityTypeName let-value="value" let-row="row">
+        <span [ngStyle]="{'color': similarityColor(row.similarityTypeId)}" style="font-weight: bold;"></span>
+      </ng-template>
     </div>
   </div>
 </div>

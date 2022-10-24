@@ -29,10 +29,9 @@ export class NamesForCleansingListComponent implements OnInit {
 
   myForm: FormGroup | undefined;
 
-  @ViewChild('actionsTemplate') actionsTemplate: TemplateRef<any> | undefined;
-  @ViewChild('headerTemplate') headerTemplate: TemplateRef<any> | undefined;
-  @ViewChild('permutationTypeName') permutationTypeName: TemplateRef<any> | undefined;
-  @ViewChild('similarityTypeName') similarityTypeName: TemplateRef<any> | undefined;
+  @ViewChild('actionsTemplate', { static: true }) actionsTemplate: TemplateRef<any> | undefined;
+  @ViewChild('headerTemplate', { static: true }) headerTemplate: TemplateRef<any> | undefined;
+  @ViewChild('similarityTypeName', { static: true }) similarityTypeName: TemplateRef<any> | undefined;
 
   constructor(
     private dialog: MatDialog,
@@ -101,14 +100,14 @@ export class NamesForCleansingListComponent implements OnInit {
         prop: 'cleansingFirstNameStatusName',
         name: 'СТАТУС',
       },
-      // {
-      //   cellTemplate: this.actionsTemplate,
-      //   headerTemplate: this.headerTemplate,
-      //   prop: 'id',
-      //   name: '',
-      //   minWidth: 50,
-      //   maxWidth: 100
-      // }
+      {
+        cellTemplate: this.actionsTemplate,
+        headerTemplate: this.headerTemplate,
+        prop: 'id',
+        name: '',
+        minWidth: 50,
+        maxWidth: 100
+      }
     ];
 
     this.pageCallback({ offset: 0 });
