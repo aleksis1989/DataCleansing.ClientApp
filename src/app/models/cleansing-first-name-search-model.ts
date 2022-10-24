@@ -5,7 +5,7 @@ export class CleansingFirstNameSearchModel extends BaseSearchModel {
 
     public similarityTypeId!: number;
 
-    public cleansingStreetStatusId!: number;
+    public cleansingFirstNameStatusId!: number;
 
     public cleansingFirstNameRowFilter!: number;
 }

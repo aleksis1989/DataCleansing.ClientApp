@@ -1,27 +1,120 @@
-<!-- End Report-->
-<div class="row" style="margin-top: 10px;">
-  <div class="col-md-12">
+<div class="row titleFixed">
+  <section class="mat-typography">
+    <div class="col-sm-6">
+      <h2>
+        Прочистување на имиња
+      </h2>
+    </div>
+  </section>
+</div>
+
+<mat-card class="prFilter">
+  <small>Филтер</small>
+  <mat-dialog-content [formGroup]="myForm">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Име" formControlName="firstName" (keyup.enter)="filter()">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Тип на сличност" formControlName="similarityTypeId" (change)="filter()">
+        <mat-option *ngFor="let status of similarityTypes" [value]="status.key">
+          {{ status.value | uppercase }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Статус" formControlName="cleansingFirstNameStatusId" (change)="filter()">
+        <mat-option *ngFor="let status of cleansingFirstNameStatusList" [value]="status.key">
+          {{ status.value | uppercase }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Тип на запис" formControlName="cleansingFirstNameRowFilter" (change)="filter()">
+        <mat-option *ngFor="let status of cleansingFirstNameRowFilterList" [value]="status.key">
+          {{ status.value | uppercase }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div>
-      <ngx-datatable class="material" [rows]="rows" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
-        [footerHeight]="50" [messages]="messages" [rowHeight]="'auto'" [externalPaging]="true" [externalSorting]="true"
-        [count]="searchModel.totalElements" [offset]="searchModel.pageNumber-1" [limit]="searchModel.size"
-        (page)="pageCallback($event)" (sort)="sortCallback($event)" tableClass="table table-striped table-bordered table-hover">
-      </ngx-datatable>
-      <ng-template #headerTemplate let-column="column">
-      </ng-template>
-      <ng-template #actionsTemplate let-row="row" let-value="value">
-        <button mat-icon-button (click)="processFirstNameCleansing(value)" *ngIf="row.canProcess">
-          <mat-icon aria-label="Обработи" matTooltip="Обработи">settings
-          </mat-icon>
-        </button>
-        <button mat-icon-button (click)="undoMergeFirstName(value)" *ngIf="row.canReject">
-          <mat-icon aria-label="Поништи го прочистувањето" matTooltip="Поништи го прочистувањето">undo
-          </mat-icon>
-        </button>
-      </ng-template>
-      <ng-template #similarityTypeNameColor let-value="value" let-row="row">
-        <span [ngStyle]="{'color': similarityColor(row.similarityTypeId)}" style="font-weight: bold;">{{value}}</span>
-      </ng-template>
+      <button class="pull-right" mat-raised-button color="primary" (click)="filter()" aria-label="Пребарај"
+        matTooltip="Пребарај">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button class="pull-right" mat-raised-button (click)="resetFilter()" aria-label="Исчисти филтри"
+        matTooltip="Исчисти филтри">
+        <mat-icon>rotate_right</mat-icon>
+      </button>
+    </div>
+  </mat-dialog-content>
+</mat-card>
+
+<div style="margin-top: 10px;">
+  <!--Report-->
+  <div class="row col-lg-12 report">
+    <div class="col-lg-2">
+      <mat-card>
+        <label class="bold-font">Bкупно:</label>
+        <span class="report-item">{{cleansingFirstNameReport?.total}}</span>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-card>
+        <label class="bold-font">Bкупно за прочистување:</label>
+        <span class="report-item">{{cleansingFirstNameReport?.totalForCleansing}}</span>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3">
+      <mat-card>
+        <label class="bold-font">Bкупно кои чекаат за прочистување:</label>
+        <span class="report-item">{{cleansingFirstNameReport?.totalWaitForCleansing}}</span>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-card>
+        <label class="bold-font">Bкупно прифатени:</label>
+        <span class="report-item">{{cleansingFirstNameReport?.totalAccept}}</span>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-card>
+        <label class="bold-font">Bкупно одбиени:</label>
+        <span class="report-item">{{cleansingFirstNameReport?.totalReject}}</span>
+      </mat-card>
     </div>
   </div>
-</div>
+  <!-- End Report-->
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-md-12">
+      <div>
+        <ngx-datatable class="material" [rows]="rows" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+          [footerHeight]="50" [messages]="messages" [rowHeight]="'auto'" [externalPaging]="true"
+          [externalSorting]="true" [count]="searchModel.totalElements" [offset]="searchModel.pageNumber-1"
+          [limit]="searchModel.size" (page)="pageCallback($event)" (sort)="sortCallback($event)"
+          tableClass="table table-striped table-bordered table-hover">
+        </ngx-datatable>
+        <ng-template #headerTemplate let-column="column">
+        </ng-template>
+        <ng-template #actionsTemplate let-row="row" let-value="value">
+          <button mat-icon-button (click)="processFirstNameCleansing(value)" *ngIf="row.canProcess">
+            <mat-icon aria-label="Обработи" matTooltip="Обработи">settings
+            </mat-icon>
+          </button>
+          <button mat-icon-button (click)="undoMergeFirstName(value)" *ngIf="row.canReject">
+            <mat-icon aria-label="Поништи го прочистувањето" matTooltip="Поништи го прочистувањето">undo
+            </mat-icon>
+          </button>
+        </ng-template>
+        <ng-template #similarityTypeNameColor let-value="value" let-row="row">
+          <span [ngStyle]="{'color': similarityColor(row.similarityTypeId)}" style="font-weight: bold;">{{value}}</span>
+        </ng-template>
+      </div>
+    </div>
+  </div>

@@ -20,6 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ExcelDataCleansingComponent } from './components/excel-data-cleansing/excel-data-cleansing.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { MatInputModule } from '@angular/material/input';
 
 const appRoutes: Routes = [
 
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatToolbarModule,
     MatDialogModule,
+    MatInputModule,
     HttpClientModule,
     NgxDatatableModule,
     RouterModule.forRoot(appRoutes)

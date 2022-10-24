@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CleansingFirstNameGridModel } from '../models/cleansing-first-name-grid-model';
+import { CleansingFirstNameReportModel } from '../models/cleansing-first-name-report-model';
 import { SearchResult } from '../models/search-result';
 import { DataService } from '../shared/data.service';
 
@@ -25,5 +26,9 @@ export class CleansingService {
 
   filterCleansingFirstNamesInGrid(data: any): Observable<SearchResult<CleansingFirstNameGridModel>> {
     return this.dataService.ajaxPost('Cleansing/FilterCleansingFirstNamesInGrid', data);
+  }
+
+  getCleansingFirstNameReport(): Observable<CleansingFirstNameReportModel> {
+    return this.dataService.ajaxPost('Cleansing/GetCleansingFirstNameReport', null);
   }
 }

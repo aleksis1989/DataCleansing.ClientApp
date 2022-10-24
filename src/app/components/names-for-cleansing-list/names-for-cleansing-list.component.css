@@ -1,0 +1,19 @@
+.report-item{
+    font-size: 15pt;
+    color: #f51101;
+    padding: 10px;
+  }
+  
+  .wizzard .prFilter, .wizzard .prFilter .infoBox{
+    padding:0px;
+    background: #eff3f5;
+}
+
+.wizzard .prFilter{
+    width: 25%;
+}
+
+.mat-form-field{
+  padding: 10px;
+}
+  

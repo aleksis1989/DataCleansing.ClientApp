@@ -3,5 +3,5 @@ export enum CleansingFirstNameRowFilterEnum {
 
     NonCleansable = 2,
   
-    WithSuggestedStreet = 3
+    WithSuggestedName = 3
 }

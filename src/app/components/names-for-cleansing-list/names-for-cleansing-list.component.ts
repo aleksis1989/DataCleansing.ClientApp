@@ -20,14 +20,14 @@ export class NamesForCleansingListComponent implements OnInit {
   rows: CleansingFirstNameGridModel[] | undefined;
   columns: any[] = [];
   searchModel: CleansingFirstNameSearchModel = new CleansingFirstNameSearchModel();
-  cleansingStreetReportModel: CleansingFirstNameReportModel | undefined;
+  cleansingFirstNameReport: CleansingFirstNameReportModel = new CleansingFirstNameReportModel();
 
   similarityTypes: Array<KeyValue<number, string>>;
   cleansingFirstNameStatusList: Array<KeyValue<number, string>>;
   cleansingFirstNameRowFilterList: Array<KeyValue<number, string>>;
   messages: any = NGX_DATATABLE_MESSAGES;
 
-  myForm: FormGroup | undefined;
+  myForm: FormGroup;
 
   @ViewChild('actionsTemplate', { static: true }) actionsTemplate: TemplateRef<any> | undefined;
   @ViewChild('headerTemplate', { static: true }) headerTemplate: TemplateRef<any> | undefined;
@@ -37,6 +37,12 @@ export class NamesForCleansingListComponent implements OnInit {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private cleansingService: CleansingService) {
+    this.myForm = this.fb.group({
+      firstName: [],
+      similarityTypeId: [0],
+      cleansingFirstNameStatusId: [CleansingFirstNamseStatus.NonProcessed],
+      cleansingFirstNameRowFilter: [CleansingFirstNameRowFilterEnum.Cleansable]
+    });
 
     this.cleansingFirstNameStatusList = [
       { key: -1, value: 'СИТЕ' },
@@ -59,26 +65,18 @@ export class NamesForCleansingListComponent implements OnInit {
     this.cleansingFirstNameRowFilterList = [
       { key: CleansingFirstNameRowFilterEnum.Cleansable, value: 'МОЖЕ ДА СЕ ПРОЧИСТАТ' },
       { key: CleansingFirstNameRowFilterEnum.NonCleansable, value: 'НЕ МОЖЕ ДА СЕ ПРОЧИСТАТ' },
-      { key: CleansingFirstNameRowFilterEnum.WithSuggestedStreet, value: 'СО ПРЕДЛОГ УЛИЦА' },
+      { key: CleansingFirstNameRowFilterEnum.WithSuggestedName, value: 'СО ПРЕДЛОГ ИМЕ' },
     ];
 
     this.searchModel = new CleansingFirstNameSearchModel();
-    this.searchModel.cleansingStreetStatusId = CleansingFirstNamseStatus.NonProcessed;
+    this.searchModel.cleansingFirstNameStatusId = CleansingFirstNamseStatus.NonProcessed;
     this.searchModel.cleansingFirstNameRowFilter = CleansingFirstNameRowFilterEnum.Cleansable;
     this.searchModel.similarityTypeId = 0;
     this.searchModel.sortColumn = 'FirstName';
   }
 
   ngOnInit(): void {
-    this.myForm = this.fb.group({
-      municipalityName: [],
-      settlementName: [],
-      streetName: [],
-      similarityTypeId: [0],
-      permutationTypeId: [0],
-      cleansingStreetStatusId: [CleansingFirstNamseStatus.NonProcessed],
-      cleansingStreetRowFilter: [CleansingFirstNameRowFilterEnum.Cleansable]
-    });
+
 
     this.rows = [];
     this.columns = [
@@ -110,6 +108,9 @@ export class NamesForCleansingListComponent implements OnInit {
       }
     ];
 
+    this.cleansingFirstNameReport = new CleansingFirstNameReportModel();
+    this.getCleansingFirstNameReport();
+
     this.pageCallback({ offset: 0 });
   }
 
@@ -138,6 +139,13 @@ export class NamesForCleansingListComponent implements OnInit {
       this.searchModel.pageNumber = 1;
       this.reloadTable();
     }
+  }
+
+  getCleansingFirstNameReport() {
+    this.cleansingService.getCleansingFirstNameReport()
+      .subscribe(response => {
+        this.cleansingFirstNameReport = response;
+      });
   }
 
   similarityColor(similarityTypeId?: number) {
@@ -190,6 +198,31 @@ export class NamesForCleansingListComponent implements OnInit {
     //     }
     //   });
   }
+
+  filter() {
+    if (this.myForm != null) {
+      this.searchModel.firstName = this.myForm.controls['firstName'].value;
+      this.searchModel.similarityTypeId = this.myForm.controls['similarityTypeId'].value;
+      this.searchModel.cleansingFirstNameStatusId = this.myForm.controls['cleansingFirstNameStatusId'].value;
+      this.searchModel.cleansingFirstNameRowFilter = this.myForm.controls['cleansingFirstNameRowFilter'].value;
+
+      this.pageCallback({ offset: 0 });
+    }
+  }
+
+  resetFilter() {
+    if (this.myForm != null) {
+      this.myForm.reset();
+
+      this.myForm.controls['similarityTypeId'].setValue(0);
+      this.myForm.controls['cleansingFirstNameStatusId'].setValue(CleansingFirstNamseStatus.NonProcessed);
+      this.myForm.controls['cleansingFirstNameRowFilter'].setValue(CleansingFirstNameRowFilterEnum.Cleansable);
+
+      this.filter();
+    }
+
+  }
+
 }
 
 export const NGX_DATATABLE_MESSAGES = {
