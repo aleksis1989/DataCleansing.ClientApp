@@ -1,3 +1,5 @@
+
+
 .file-input {
   display: none;
 }
@@ -41,4 +43,122 @@
 
 .mat-icon-button.mat-primary{
   color: white;
+}
+
+.ngx-datatable.material .empty-row {
+  height: auto;
+
+  padding: 50px;
+
+  text-align: center;
+}
+.ngx-datatable.material .empty-row:before{
+  content: "\e053";
+  position: relative;
+  top: 1px;
+  display: block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 85px;
+  font-size: 55px;
+  color: #e5e5e5;
+}
+
+.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {
+  height: inherit;
+  color: black;
+  font-weight: 400;
+  font-family: Roboto,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  font-weight: 500;
+}
+
+.ngx-datatable.material {
+  background: #FFF;
+  -o-box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ngx-datatable.material ul{
+      padding-left: 20px;
+      list-style-type: circle;
+  
+}
+
+.ngx-datatable.material .mat-icon-button .mat-icon, .ngx-datatable.material .mat-icon-button i {
+  line-height: 20px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.ngx-datatable.material .mat-icon-button {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: -8px;
+  color: rgba(0, 0, 0, 0.5) !important;
+  transition: all .2s ease-in-out;
+  /* float: right; */
+}
+.ngx-datatable.material .datatable-body-cell:last-of-type, .ngx-datatable.material .datatable-header-cell:last-of-type{
+  text-align: right !important;
+}
+.ngx-datatable.material .mat-icon-button:hover{
+  color: rgba(0, 0, 0, 1) !important;
+  transition: all .2s ease-in-out;
+}
+
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  color: rgba(0, 0, 0, 0.8);
+}
+.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {
+  height: inherit;
+  color: black;
+  font-weight: 400;
+}
+
+.ngx-datatable.material .datatable-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  height: auto !important;
+}
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover, .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group{
+  background-color: #f5f5f5;
+}
+
+.ngx-datatable .datatable-body .datatable-scroll {
+  max-width: 100%;
+}
+
+.ngx-datatable .datatable-row-left, .ngx-datatable .datatable-row-center, .ngx-datatable .datatable-row-group, .ngx-datatable .datatable-row-right {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.ngx-datatable.material .empty-row {
+  height: auto;
+
+  padding: 50px;
+
+  text-align: center;
+}
+.ngx-datatable.material .empty-row:before{
+  content: "\e053";
+  position: relative;
+  top: 1px;
+  display: block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 85px;
+  font-size: 55px;
+  color: #e5e5e5;
+}
+
+.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {
+  height: inherit;
+  color: black;
+  font-weight: 400;
+  font-family: Roboto,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  font-weight: 500;
 }

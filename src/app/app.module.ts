@@ -10,21 +10,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NamesForCleansingListComponent } from './components/names-for-cleansing-list/names-for-cleansing-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BlockUIModule } from 'ng-block-ui';
-import {MatListModule} from '@angular/material/list';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ExcelDataCleansingComponent } from './components/excel-data-cleansing/excel-data-cleansing.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const appRoutes: Routes = [
 
   { path: 'home', component: ExcelDataCleansingComponent, pathMatch: 'full' },
   {
     path: 'first-names-cleansing',
-    component:NamesForCleansingListComponent,
+    component: NamesForCleansingListComponent,
     pathMatch: 'full'
   },
   { path: '**', redirectTo: '' }
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BlockUIModule.forRoot({
       delayStart: 300,
@@ -53,7 +56,9 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatListModule,
     MatToolbarModule,
+    MatDialogModule,
     HttpClientModule,
+    NgxDatatableModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
