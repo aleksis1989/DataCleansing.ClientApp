@@ -47,7 +47,11 @@ export class CleansingService {
     return this.dataService.ajaxPost('Cleansing/MergeFirstName', model);
   }
 
+  undoMerge(id: number): Observable<boolean> {
+    return this.dataService.ajaxPost('Cleansing/UndoMerge', { id });
+  }
+
   rejectMergeFirstName(id: number): Observable<boolean> {
-    return this.dataService.ajaxPost('Cleansing/RejectMergeFirstName', {id});
+    return this.dataService.ajaxPost('Cleansing/RejectMergeFirstName', { id });
   }
 }

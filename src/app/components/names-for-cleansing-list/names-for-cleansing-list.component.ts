@@ -50,8 +50,6 @@ export class NamesForCleansingListComponent implements OnInit {
     this.cleansingFirstNameStatusList = [
       { key: -1, value: 'СИТЕ' },
       { key: CleansingFirstNamseStatus.NonProcessed, value: 'НЕПРОЦЕСИРАНИ' },
-      { key: CleansingFirstNamseStatus.Accepted, value: 'ПРИФАТЕНИ' },
-      { key: CleansingFirstNamseStatus.AcceptSuggestion, value: 'ПРИФАТЕНА СУГЕСТИЈА' },
       { key: CleansingFirstNamseStatus.AcceptSimilarity, value: 'ПРИФАТЕНО ПО СЛИЧНОСТ' },
       { key: CleansingFirstNamseStatus.ManualCorrection, value: 'РАЧНА КОРЕКЦИЈА' },
       { key: CleansingFirstNamseStatus.Rejected, value: 'ОДБИЕНО ПРОЧИСТУВАЊЕ' },
@@ -186,7 +184,11 @@ export class NamesForCleansingListComponent implements OnInit {
   }
 
   undoMergeFirstName(id: number) {
-    
+    this.cleansingService.undoMerge(id).subscribe(() => {
+      this.resetFilter();
+      this.filter();
+      this.snackBarService.openSuccess('Записот е успешно вратен.');
+    });
   }
 
   filter() {

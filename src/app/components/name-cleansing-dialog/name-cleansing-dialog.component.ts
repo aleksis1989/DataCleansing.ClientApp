@@ -86,8 +86,6 @@ export class NameCleansingDialogComponent implements OnInit {
                     map(value => this._filterFirstNames({ value }))
                   );
               }
-
-
             });
         }
       });
@@ -150,14 +148,6 @@ export class NameCleansingDialogComponent implements OnInit {
       firstNameTemp.value = this.cleansingFirstNameViewModel.similarityFirstName;
       this.cleansingFirstName?.setValue(firstNameTemp);
       this.cleansingFirstNameStatusId?.setValue(this.cleansingFirstNameStatus.AcceptSimilarity);
-      return;
-
-    } else if (value === this.cleansingFirstNameStatus.AcceptSuggestion) {
-      this.similaritySelected = false;
-      this.suggestedFirstNameSelected = true;
-      this.manualInput = false;
-
-      this.cleansingFirstNameStatusId?.setValue(CleansingFirstNamseStatus.AcceptSuggestion);
       return;
 
     } else if (value === this.cleansingFirstNameStatus.ManualCorrection) {

@@ -101,7 +101,7 @@
         <!--AlgorithmResult-->
         <div class="row col-lg-12" style="padding: 10px;" *ngIf="cleansingFirstNameViewModel.similarityFirstNameCleansingResult">
             <mat-card matRipple class="clickable"
-                (click)="!manualInput && onCardClick(cleansingFirstNameStatus.AcceptSuggestion)"
+                (click)="!manualInput && onCardClick(cleansingFirstNameStatus.AcceptSimilarity)"
                 style="cursor: pointer;" [ngStyle]="{'background-color': suggestedFirstNameSelected ? '#ceecce' : ''}">
                 <mat-card-header>
                     <mat-card-title>{{!manualInput? 'Предлог Име' : ''}}
