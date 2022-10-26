@@ -1,0 +1,172 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+
+<div class="col-lg-12 text-center">
+    {{cleansingFirstNameViewModel.firstName}} <br>
+</div>
+
+<mat-dialog-content [formGroup]="myForm">
+    <div>
+        <!--Levenshtein-->
+        <div class="row col-lg-12" style="padding: 10px;">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Levenshtein</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-lg-10" style="text-align: left !important;">
+                            Име: {{cleansingFirstNameViewModel.levenshteinFirstName}}
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                [style.width]="cleansingFirstNameViewModel.levenshtein + '%'"
+                                attr.aria-valuenow="{{cleansingFirstNameViewModel.levenshtein}}" aria-valuemin="0"
+                                aria-valuemax="100">
+                                {{cleansingFirstNameViewModel.levenshtein}}%</div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!--Jaccard-->
+        <div class="row col-lg-12" style="padding: 10px;">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Jaccard</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-lg-10" style="text-align: left !important;">
+                            Име: {{cleansingFirstNameViewModel.jaccardFirstName}}
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                [style.width]="cleansingFirstNameViewModel.jaccard + '%'"
+                                attr.aria-valuenow="{{cleansingFirstNameViewModel.jaccard}}" aria-valuemin="0"
+                                aria-valuemax="100">
+                                {{cleansingFirstNameViewModel.jaccard}}%</div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!--JaroWinkler-->
+        <div class="row col-lg-12" style="padding: 10px;">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>JaroWinkler</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-lg-10" style="text-align: left !important;">
+                            Име: {{cleansingFirstNameViewModel.jaroWinklerFirstName}}
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                [style.width]="cleansingFirstNameViewModel.jaroWinkler + '%'"
+                                attr.aria-valuenow="{{cleansingFirstNameViewModel.jaroWinkler}}" aria-valuemin="0"
+                                aria-valuemax="100">
+                                {{cleansingFirstNameViewModel.jaroWinkler}}%</div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!--LongestCommonSubsequence-->
+        <div class="row col-lg-12" style="padding: 10px;">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>LongestCommonSubsequence</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-lg-10" style="text-align: left !important;">
+                            Име: {{cleansingFirstNameViewModel.longestCommonSubsequenceFirstName}}
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                [style.width]="cleansingFirstNameViewModel.longestCommonSubsequence + '%'"
+                                attr.aria-valuenow="{{cleansingFirstNameViewModel.longestCommonSubsequence}}"
+                                aria-valuemin="0" aria-valuemax="100">
+                                {{cleansingFirstNameViewModel.longestCommonSubsequence}}%</div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!--AlgorithmResult-->
+        <div class="row col-lg-12" style="padding: 10px;" *ngIf="cleansingFirstNameViewModel.similarityFirstNameCleansingResult">
+            <mat-card matRipple class="clickable"
+                (click)="!manualInput && onCardClick(cleansingFirstNameStatus.AcceptSuggestion)"
+                style="cursor: pointer;" [ngStyle]="{'background-color': suggestedFirstNameSelected ? '#ceecce' : ''}">
+                <mat-card-header>
+                    <mat-card-title>{{!manualInput? 'Предлог Име' : ''}}
+                        <button mat-icon-button (click)="onCardClick(cleansingFirstNameStatus.ManualCorrection)"
+                            *ngIf="!manualInput">
+                            <mat-icon aria-label="Обработи" matTooltip="Обработи">settings
+                            </mat-icon>
+                        </button>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div *ngIf="!manualInput">
+                        Име: {{cleansingFirstNameViewModel.similarityFirstNameCleansingResult}}
+                    </div>
+                    <mat-form-field class="full-width" *ngIf="manualInput">
+                        <input type="text" placeholder="Изберете Име" matInput formControlName="cleansingFirstName"
+                            [matAutocomplete]="autoFirstName" (focus)="onFirstNameFocus()">
+                        <mat-autocomplete #autoFirstName="matAutocomplete" [displayWith]="displayFnFirstName">
+                            <mat-option *ngFor="let firstName of filteredFirstNames | async" [value]="firstName">
+                                {{firstName.value}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!--ManualResult -->
+        <div class="row col-lg-12" *ngIf="!cleansingFirstNameViewModel.similarityFirstNameCleansingResult">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <button mat-icon-button (click)="onManualBtnClick()" *ngIf="showManualInputBtn()">
+                            <mat-icon aria-label="Обработи" matTooltip="Обработи">settings
+                            </mat-icon>
+                        </button>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div *ngIf="!manualInput">
+                        Име: {{cleansingFirstName?.value?.value}}
+                    </div>
+                    <mat-form-field class="full-width" *ngIf="manualInput">
+                        <input type="text" placeholder="Изберете Име" matInput formControlName="cleansingFirstName"
+                            [matAutocomplete]="autoFirstName" (focus)="onFirstNameFocus()">
+                        <mat-autocomplete #autoFirstName="matAutocomplete" [displayWith]="displayFnFirstName">
+                            <mat-option *ngFor="let firstName of filteredFirstNames | async" [value]="firstName">
+                                {{firstName.value}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" type="submit" [disabled]="myForm?.invalid" (click)="submit()">
+        Зачувај
+    </button>
+    <button mat-raised-button (click)="rejectFirstNameCleansing()">
+        Одбиј
+    </button>
+    <button mat-raised-button (click)="cancel()">
+        Откажи
+    </button>
+</mat-dialog-actions>

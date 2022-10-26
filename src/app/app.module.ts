@@ -21,6 +21,11 @@ import { ExcelDataCleansingComponent } from './components/excel-data-cleansing/e
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatInputModule } from '@angular/material/input';
+import { NameCleansingDialogComponent } from './components/name-cleansing-dialog/name-cleansing-dialog.component';
+import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
+import { SnackBarComponent } from './components/common/snack-bar/snack-bar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const appRoutes: Routes = [
 
@@ -37,7 +42,10 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     NamesForCleansingListComponent,
-    ExcelDataCleansingComponent
+    ExcelDataCleansingComponent,
+    NameCleansingDialogComponent,
+    ConfirmDialogComponent,
+    SnackBarComponent
   ],
   imports: [
     FormsModule,
@@ -61,7 +69,14 @@ const appRoutes: Routes = [
     MatInputModule,
     HttpClientModule,
     NgxDatatableModule,
+    MatSnackBarModule,
+    MatAutocompleteModule,
     RouterModule.forRoot(appRoutes)
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    SnackBarComponent,
+    NameCleansingDialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content>
+    <p class="body-1">{{ message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" type="submit" (click)="dialogRef.close(true)">
+        {{ okText }}
+    </button>
+    <button mat-raised-button (click)="dialogRef.close()">
+        {{ cancelText }}
+    </button>
+</mat-dialog-actions>

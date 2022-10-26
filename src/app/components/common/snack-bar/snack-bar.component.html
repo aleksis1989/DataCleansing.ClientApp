@@ -1,0 +1,9 @@
+<div class="snack-bar">
+    <span *ngIf="type === 'success'">
+      <mat-icon>check_circle_outline</mat-icon> &nbsp;&nbsp;
+    </span>
+    <span *ngIf="type === 'error'">
+      <mat-icon>cancel</mat-icon> &nbsp;&nbsp;
+    </span>
+    <span>{{message}}</span>
+  </div>

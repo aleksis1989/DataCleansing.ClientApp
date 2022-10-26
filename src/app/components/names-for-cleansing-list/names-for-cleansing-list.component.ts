@@ -9,6 +9,8 @@ import { CleansingFirstNameSearchModel } from 'src/app/models/cleansing-first-na
 import { CleansingFirstNamseStatus } from 'src/app/models/cleansing-first-namse-status';
 import { SimilarityType } from 'src/app/models/similarity-type';
 import { CleansingService } from 'src/app/services/cleansing.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { NameCleansingDialogComponent } from '../name-cleansing-dialog/name-cleansing-dialog.component';
 
 @Component({
   selector: 'app-names-for-cleansing-list',
@@ -36,7 +38,8 @@ export class NamesForCleansingListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private cleansingService: CleansingService) {
+    private cleansingService: CleansingService,
+    private snackBarService: SnackBarService) {
     this.myForm = this.fb.group({
       firstName: [],
       similarityTypeId: [0],
@@ -149,7 +152,6 @@ export class NamesForCleansingListComponent implements OnInit {
   }
 
   similarityColor(similarityTypeId?: number) {
-    debugger;
     if (similarityTypeId) {
       switch (similarityTypeId) {
         case SimilarityType.Weak:
@@ -165,38 +167,27 @@ export class NamesForCleansingListComponent implements OnInit {
   }
 
   processFirstNameCleansing(id: number) {
-    // const dialogRef1 = this.dialog.open(StreetCleansingDialogComponent, {
-    //   width: '80%',
-    //   disableClose: true,
-    //   data: {
-    //     cleansingStreetId: id,
-    //   },
-    //   autoFocus: false
-    // });
+    const dialogRef1 = this.dialog.open(NameCleansingDialogComponent, {
+      width: '40%',
+      disableClose: true,
+      data: {
+        cleansingFirstNameId: id,
+      },
+      autoFocus: false
+    });
 
-    // dialogRef1.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.snackBarService.openSuccess('Улицата е успешно прочистена.');
-    //   }
+    dialogRef1.afterClosed().subscribe(result => {
+      if (result) {
+        this.snackBarService.openSuccess('Улицата е успешно прочистена.');
+      }
 
-    //   this.filter();
-    //   this.cleansingStreetReport();
-    // });
+      this.filter();
+      this.getCleansingFirstNameReport();
+    });
   }
 
   undoMergeFirstName(id: number) {
-    // this.dialogService.confirm('',
-    //   'Дали се сигурни дека сакате да го поништите прочистувањето на улицата?',
-    //   'Да',
-    //   'Откажи').subscribe(answer => {
-    //     if (answer) {
-    //       this.cleansingStreetService.undoMergeStreet(id)
-    //         .subscribe(() => {
-    //           this.filter();
-    //           this.snackBarService.openSuccess('Прочистувањето на улицата е поништено.');
-    //         });
-    //     }
-    //   });
+    
   }
 
   filter() {
