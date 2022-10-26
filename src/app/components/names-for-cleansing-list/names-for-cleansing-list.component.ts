@@ -53,7 +53,6 @@ export class NamesForCleansingListComponent implements OnInit {
       { key: CleansingFirstNamseStatus.Accepted, value: 'ПРИФАТЕНИ' },
       { key: CleansingFirstNamseStatus.AcceptSuggestion, value: 'ПРИФАТЕНА СУГЕСТИЈА' },
       { key: CleansingFirstNamseStatus.AcceptSimilarity, value: 'ПРИФАТЕНО ПО СЛИЧНОСТ' },
-      { key: CleansingFirstNamseStatus.AcceptPermutation, value: 'ПРИФАТЕНО ПО ПЕРМУТАЦИЈА' },
       { key: CleansingFirstNamseStatus.ManualCorrection, value: 'РАЧНА КОРЕКЦИЈА' },
       { key: CleansingFirstNamseStatus.Rejected, value: 'ОДБИЕНО ПРОЧИСТУВАЊЕ' },
     ];
