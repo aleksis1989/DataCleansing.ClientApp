@@ -41,7 +41,7 @@ export class DataService {
   downloadFile(url: string, fileName: string) {
     this.ajaxPostBlob(this.baseUrl + url, { fileName })
       .subscribe(response => {
-        this.saveFile(response.body, fileName + ".xlsx");
+        this.saveFile(response.body, fileName + ".xls");
       }, (error: any) => {
       });
   }

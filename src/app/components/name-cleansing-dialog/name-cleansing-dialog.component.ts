@@ -140,7 +140,7 @@ export class NameCleansingDialogComponent implements OnInit {
   onCardClick(value: any) {
     if (value === this.cleansingFirstNameStatus.AcceptSimilarity) {
       this.similaritySelected = true;
-      this.suggestedFirstNameSelected = false;
+      this.suggestedFirstNameSelected = true;
       this.manualInput = false;
 
       const firstNameTemp = new KeyValue<number, string>();
